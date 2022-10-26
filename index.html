@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Map </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.1/dist/L.Control.Locate.min.css" />
+    
+    <link rel="stylesheet" type="text/css" href="mapa.css">
+   
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src= "resources/leaflet.ajax.js"></script>
+    <style>
+        #header {
+            height: 75px;
+            background-color: sandybrown;
+        }
+
+        #mapdiv{
+            height: 650px;
+            background-color: rgb(50, 40, 104);
+        }
+        #side_pane{
+            height: 650px;
+            background-color: beige;
+        }
+        #footer{
+            height: 75px;
+            background-color: lightblue;
+        }
+        .attraction{
+        margin-bottom:5px;
+    }
+    
+    </style>
+</head>
+<body>
+<div id="header" class="col-md-12">
+    <h1 class="text-center">Girmar Laucho Arellán</h1>
+</div>
+<div id="side_panel" class="col-md-3">
+    <h1 class="text-center">Escolaridad y Experiencia Laboral</h1>
+    <button id="zoomToucv" class="form-control btn-primary">Universidad Cental de Venezuela</button>
+    <button id="zoomToine" class="form-control btn-primary">Instituto Nacional de Estadística</button>
+    <button id="zoomTodnc" class="form-control btn-primary">Dirección Nacional de Catastro</button>
+
+    <button id="zoomToIGVSB" class="form-control btn-primary">IGVSB</button>
+    <button id="zoomTointu" class="form-control btn-primary">Instituto Nacional de Tierras Urbanas</button>
+    <button id="zoomToingeolan" class="form-control btn-primary">Ingeolan</button>
+
+</div>
+<div id="mapdiv" class="col-md-9"></div>
+<div id="footer" class="col-md-12">
+    <h4 id="map_coords" class="text-center">Latitude: -34.8 Longitude: -56.18 Zoom Level:11 </h4>
+    <h4 class="text-center">&copy;2022<a href="https://www.linkedin.com/in/girmar-laucho-a39376138/">Girmar Laucho</a> 
+    </h4>
+</div>
+<script>
+    var mymap=L.map('mapdiv')
+    mymap.setView([-34.88931815026549, -56.18086279903304],11);
+
+
+    var backgroundLayer=L.tileLayer ('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+    mymap.addLayer(backgroundLayer);
+
+    var ucvMarker=L.marker([10.491374588325108, -66.88941681125264]).addTo(mymap).bindPopup("<h3 class='text center'> UCV - Escuela de Geografía 2018 </h3> <a href='http://www.ucv.ve/estructura/facultades/facultad-de-humanidades-y-educacion/servicio-comunitario/proyectos/proyectos-ejecutados/escuela-de-geografia.html' target='blank'> <img src='img/ucv.jpg' width='200px'></a>");
+    $("#zoomToucv").click(function(){
+        mymap.setView([10.491374588325108, -66.88941681125264],17);
+    });
+    var ineMarker=L.marker([-34.907650807562106, -56.20009881584393]).addTo(mymap).bindPopup("<h3 class='text center'>INE - Geomática</h3> <a href='https://www.ine.gub.uy/' target='blank'> <img src='img/ine.jpg' width='200px'></a>");
+    $("#zoomToine").click(function(){
+        mymap.setView([-34.907650807562106, -56.20009881584393],17);
+    });
+
+    var dncMarker=L.marker([-34.90438700326136, -56.19164238316665]).addTo(mymap).bindPopup("<h3 class='text center'>DNC</h3> <a href='https://www.gub.uy/ministerio-economia-finanzas/institucional-dnc' target='blank'> <img src='img/dnc.jpg' width='200px'></a>");
+    $("#zoomTodnc").click(function(){
+        mymap.setView([-34.90438700326136, -56.19164238316665],17);
+    });
+
+    var intuMarker=L.marker([10.479498640525607, -66.85855138916263]).addTo(mymap).bindPopup("<h3 class='text center'>INTU</h3> <a href='https://www.minhvi.gob.ve/intu/' target='blank'> <img src='img/intu.jpg' width='200px'></a>");
+    $("#zoomTointu").click(function(){
+        mymap.setView([10.479498640525607, -66.85855138916263],17);
+    });
+
+    var ingeolanMarker=L.marker([10.501219270251166, -66.78784554635455]).addTo(mymap).bindPopup("<h3 class='text center'>Ingeolan</h3> <a href='http://www.ingeolan.com/' target='blank'> <img src='img/ingeolan.jpg' width='200px'></a>");
+    $("#zoomToingeolan").click(function(){
+        mymap.setView([10.501219270251166, -66.787845546354553],17);
+    });
+
+
+    var igvsbMarker=L.marker([10.502717910675859, -66.91307830278953]).addTo(mymap).bindPopup("<h3 class='text center'>IGVSB</h3> <a href='https://es.wikipedia.org/wiki/Instituto_Geogr%C3%A1fico_de_Venezuela_Sim%C3%B3n_Bol%C3%ADvar' target='blank'> <img src='img/igvsb.jpg' width='200px'></a>");
+    $("#zoomToIGVSB").click(function(){
+        mymap.setView([10.502717910675859, -66.91307830278953],17);
+    });
+
+    
+    mymap.on('mousemove',function(e){
+        var str="Latitude: "+e.latlng.lat.toFixed(5)+"Longitude:"+e.latlng.lng.toFixed(5)+"Zoom Level:"+mymap.getZoom();
+        $("#map_coords").html(str);
+    }
+    );
+
+
+
+    var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson').addTo(mymap);
+ 
+    var geojsonLayer=new L.GeoJSON.AJAX('data/attractions.geojson', {pointToLayer:
+        function (feature,latlng) {
+        var str= "<h4>"+feature.properties.name+"</h4><hr>";
+        str +="<a href='"+feature.properties.web+"' target='blank'>";
+        str +="<img src = 'img/"+feature.properties.image+"' width='200px'>";
+        str += "</a>";
+        return L.marker(latlng).bindPopup(str);
+    }});
+    geojsonLayer.addTo(mymap); 
+    
+
+   
+</script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>  
+<script>L.control.locate().addTo(map);</script>
+</body>
+
+</html>
